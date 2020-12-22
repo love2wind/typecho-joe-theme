@@ -27,6 +27,7 @@
                     <span>评论量</span>
                 </div>
             </div>
+            <?php $this->need('component/post.social.php'); ?>
             <?php $this->widget('Widget_Contents_Post_Recent@aside565', 'pageSize=' . $this->options->JAuthorStatus)->to($hot); ?>
             <?php if ($hot->have()) : ?>
                 <ul class="articles">
@@ -202,7 +203,7 @@
     <?php if ($this->options->JAsideReplyStatus !== 'off') : ?>
         <div class="aside aside-reply">
             <h3>最新回复</h3>
-            <?php $this->widget('Widget_Comments_Recent@ok88', 'ignoreAuthor=true&pageSize=5')->to($comments); ?>
+            <?php $this->widget('Widget_Comments_Recent@ok88', 'ignoreAuthor=true&pageSize=3')->to($comments); ?>
             <?php if ($comments->have()) : ?>
                 <ol class="list" id="asideReply">
                     <?php while ($comments->next()) : ?>
