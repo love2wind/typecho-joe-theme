@@ -135,6 +135,8 @@
             this.init_comment_like();
             /* 初始化动态回复 */
             this.init_dynamic_reply();
+            /* 初始化视频册 */
+            this.init_video_album();
             /* 初始化图片懒加载 */
             this.init_lazy_load();
         }
@@ -1776,6 +1778,47 @@
                     }
                 });
             });
+        }
+
+        /* 初始化视频册 */
+        init_video_album() {
+            function GetVideoPoster(url, frame = 1, scale = 1, definition = 0.5) {
+                let video = document.createElement('VIDEO');
+                video.setAttribute('src', url);
+                video.crossOrigin = '*';
+                video.currentTime = frame;
+                return new Promise((resolve, reject) => {
+                    video.addEventListener('loadeddata', () => {
+                        let canvas = document.createElement('canvas');
+                        canvas.width = video.videoWidth * scale;
+                        canvas.height = video.videoHeight * scale;
+                        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+                        resolve(canvas.toDataURL('image/webp', definition));
+                    });
+                });
+            }
+            $('.j-short-video .inner').each((i, item) => {
+                let poster = $(item).attr('data-poster');
+                let src = $(item).attr('data-src');
+                /* 如果传入字符串图片，则直接显示字符串图片 */
+                if (isNaN(poster)) {
+                    $(item).css('background-image', 'url(' + poster + ')');
+                } else {
+                    /* 否则抓取视频帧 */
+                    GetVideoPoster(src, poster).then(res => {
+                        $(item).css('background-image', 'url(' + res + ')');
+                    });
+                }
+                $(item).on('click', function () {
+                    $("body").css("overflow", "hidden")
+                    $('.j-video-preview').addClass('active');
+                    $('.j-video-preview iframe').attr('src', window.JOE_CONFIG.THEME_URL + '/player.php?url=' + src);
+                });
+            });
+            $(".j-video-preview .close").on("click", function() {
+                $("body").css("overflow", "")
+                $('.j-video-preview').removeClass('active');
+            })
         }
 
         /* 初始化图片懒加载 */

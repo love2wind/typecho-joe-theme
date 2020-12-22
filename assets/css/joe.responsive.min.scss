@@ -255,8 +255,24 @@
     .j-card-default,
     .j-tabs,
     .j-line,
-    .j-alt {
+    .j-alt,
+    .j-short-video {
         margin: 15px 0;
+    }
+    .j-short-video {
+        .item {
+            width: 100%;
+        }
+    }
+    .j-video-preview {
+        iframe {
+            height: 250px;
+        }
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
     }
 }
 

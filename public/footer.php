@@ -2,9 +2,7 @@
 <?php if ($this->options->JFishStatus === "top") : ?>
     <div id="j-fish-skip"></div>
 <?php endif; ?>
-
 <?php $this->need('component/foot.about.php'); ?>
-
 <section class="container-fluid j-footer">
     <section class="row">
         <section class="container">

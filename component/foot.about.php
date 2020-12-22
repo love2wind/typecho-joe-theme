@@ -97,24 +97,24 @@
                     <tbody border:="" 0;="">
                         <tr>
                             <td style="text-align:center;border: 0;padding: 0 5px;">
-                                <img src="https://nicepub.top/wp-content/uploads/2019/11/weixin_big.png"
-                                alt="我的微信" style="width:100px;">
+                                <img src="https://imgsrc.xyz/images/2020/12/15/685b56dbe9a6a6b0252fa03513b39456.png"
+                                alt="官方QQ群" style="width:100px;">
                                 <p style="text-align:center;">
-                                    我的微信
+                                    官方QQ群
                                 </p>
                             </td>
                             <td style="text-align:center;border: 0;padding: 0 5px;">
-                                <img src="https://nicepub.top/wp-content/uploads/2019/11/gongzhonghao.png"
-                                alt="我的公众号" style="width:100px;">
+                                <img src="https://imgsrc.xyz/images/2020/12/15/10b245b144c658cd53821082d02dfdc5.png"
+                                alt="我的微信号" style="width:100px;">
                                 <p style="text-align:center;">
-                                    我的公众号
+                                    我的微信号
                                 </p>
                             </td>
                             <td style="text-align:center;border: 0;padding: 0 5px;">
-                                <img src="https://nicepub.top/wp-content/uploads/2019/11/M_weibo_big.png"
-                                alt="官方微博" style="width:100px;">
+                                <img src="https://imgsrc.xyz/images/2020/12/15/e61c8fdfb90f4c10a60bd989cccdf06e.png"
+                                alt="微信公众号" style="width:100px;">
                                 <p style="text-align:center;">
-                                    官方微博
+                                    微信公众号
                                 </p>
                             </td>
                         </tr>

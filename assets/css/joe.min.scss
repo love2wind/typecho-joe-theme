@@ -3838,7 +3838,7 @@ table {
 code {
     display: inline-block;
     vertical-align: top;
-    height: 26px;
+    min-height: 26px;
     line-height: 26px;
     border-radius: 4px;
     font-size: 12px;
@@ -5492,6 +5492,93 @@ pre code {
         &:hover {
             text-decoration: none !important;
             transform: translate3d(0, -5px, 0);
+        }
+    }
+}
+
+.j-short-video {
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    .item {
+        width: 33.33333%;
+        height: 180px;
+        padding: 0 10px;
+        margin-bottom: 20px;
+        .inner {
+            position: relative;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center center;
+            box-shadow: var(--box-shadow);
+            border-radius: var(--radius-pc);
+            overflow: hidden;
+            svg {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate3d(-50%, -50%, 0) scale(2);
+                width: 50px;
+                height: 50px;
+                opacity: 0;
+                transition: all .25s ease-out;
+                fill: #ebebeb;
+                z-index: 2;
+            }
+            &::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                transition: all 0.3s ease-out;
+                opacity: 0;
+                z-index: 1;
+            }
+            &:hover {
+                &::after {
+                    opacity: 1;
+                }
+                svg {
+                    opacity: 1;
+                    transform: translate3d(-50%, -50%, 0) scale(1);
+                }
+            }
+        }
+    }
+}
+
+.j-video-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    iframe {
+        width: 100%;
+        height: 500px;
+        transform: scale3d(0,0,0);
+        transition: transform 0.35s;
+    }
+    .close {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        width: 30px;
+        height: 30px;
+        fill: var(--classA);
+        cursor: pointer;
+        transition: transform 0.35s;
+        &:hover {
+            transform: rotate(90deg);
+        }
+    }
+    &.active {
+        iframe {
+            transform: scale3d(1,1,1);
         }
     }
 }

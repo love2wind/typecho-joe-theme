@@ -256,4 +256,6 @@
             <?php endif; ?>
         </div>
     <?php endif; ?>
+    <!-- 站点信息 -->
+<?php $this->need('component/site.info.php'); ?>
 </div>
