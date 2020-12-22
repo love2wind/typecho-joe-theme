@@ -639,11 +639,12 @@
                     margin: 15px 0;
                 }
 
+                .hljs-pre {
+                    margin: 15px 0;
+                    font-size: 13px;
+                }
                 .hljs {
                     max-height: 350px;
-                    padding: 10px;
-                    border-radius: calc(var(--radius-wap) / 2);
-                    margin: 15px 0;
                 }
 
                 .reply-content {

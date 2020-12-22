@@ -1648,4 +1648,4 @@ function themeConfig($form)
     );
     $JDynamicComment->setAttribute('class', 'j-setting-content j-setting-other');
     $form->addInput($JDynamicComment->multiMode());
-}/**     * 访问总量     */function theAllViews(){	$db = Typecho_Db::get();	$row = $db->fetchAll('SELECT SUM(VIEWS) FROM `typecho_contents`');	echo number_format($row[0]['SUM(VIEWS)']);	}	/*** 文章字数统计*调用<?php art_count($this->cid); ?>*/function  art_count ($cid){    $db=Typecho_Db::get ();    $rs=$db->fetchRow ($db->select ('table.contents.text')->from ('table.contents')->where ('table.contents.cid=?',$cid)->order ('table.contents.cid',Typecho_Db::SORT_ASC)->limit (1));    $text = preg_replace("/[^\x{4e00}-\x{9fa5}]/u", "", $rs['text']);    echo mb_strlen($text,'UTF-8');}?>
+} ?>

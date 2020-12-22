@@ -835,6 +835,11 @@
                 $(element).attr('href', $(this).attr('data-original') || $(this).attr('src'));
                 $(this).wrap(element);
             });
+
+            $('code.hljs').parent().addClass('hljs-pre');
+            $('code.hljs').each(function () {
+                $(this).html('<ol><li>' + $(this).html().replace(/\n/g, '\n</li><li>') + '\n</li></ol>');
+            });
         }
 
         /* 初始化百度收录 */
