@@ -1,4 +1,10 @@
 <?php
+/*
+ * @Descripttion: 
+ * @Author: 帅气的杜恒欧巴
+ * @Date: 2020-12-07 09:16:55
+ * @LastEditTime: 2020-12-12 08:55:34
+ */
 
 /**
  * 留言
@@ -40,10 +46,6 @@
 
                 <?php $this->need('public/comment.php'); ?>
             </section>
-
-            <?php if ($this->options->JPostAsideStatus === 'on' && $this->fields->aside !== 'off') : ?>
-                <?php $this->need('public/aside.php'); ?>
-            <?php endif; ?>
         </section>
 
         <!-- 弹幕 -->

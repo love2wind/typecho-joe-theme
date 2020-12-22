@@ -7,7 +7,7 @@ define("THEME_NAME", $str2[0]);
 /* 获取模板版本号 */
 function JoeVersion()
 {
-    return "4.5.8";
+    return "4.6.3";
 }
 
 /* 获取懒加载图片 */
@@ -118,6 +118,8 @@ function ParseCode($text)
     $text = Short_Music($text);
     /* 音乐列表短代码 */
     $text = Short_Music_List($text);
+    /* 视频列表短代码 */
+    $text = Short_Video_List($text);
     return $text;
 }
 
@@ -145,15 +147,16 @@ function Short_Photo($text)
 
 function Short_Tag($text)
 {
-    $text = preg_replace_callback('/\[tag.*?type=\"(.*?)\".*?\](.*?)\[\/tag\]/ism', function ($text) {
+    $text = preg_replace_callback('/\[tag type=\"(.*?)\".*?\](.*?)\[\/tag\]/ism', function ($text) {
         return '<span class="j-tag ' . $text[1] . '">' . $text[2] . '</span>';
     }, $text);
+
     return $text;
 }
 
 function Short_Button($text)
 {
-    $text = preg_replace_callback('/\[btn.*?href=\"(.*?)\".*?type=\"(.*?)\".*?\](.*?)\[\/btn\]/ism', function ($text) {
+    $text = preg_replace_callback('/\[btn href=\"(.*?)\" type=\"(.*?)\".*?\](.*?)\[\/btn\]/ism', function ($text) {
         return '<a href="' . $text[1] . '" class="j-btn ' . $text[2] . '">' . $text[3] . '</a>';
     }, $text);
     return $text;
@@ -162,10 +165,10 @@ function Short_Button($text)
 
 function Short_Alt($text)
 {
-    $text = preg_replace_callback('/<p>\[alt.*?type=\"(.*?)\".*?\](.*?)\[\/alt\]<\/p>/ism', function ($text) {
+    $text = preg_replace_callback('/<p>\[alt type=\"(.*?)\".*?\](.*?)\[\/alt\]<\/p>/ism', function ($text) {
         return '[alt type="' . $text[1] . '"]' . $text[2] . '[/alt]';
     }, $text);
-    $text = preg_replace_callback('/\[alt.*?type=\"(.*?)\".*?\](.*?)\[\/alt\]/ism', function ($text) {
+    $text = preg_replace_callback('/\[alt type=\"(.*?)\".*?\](.*?)\[\/alt\]/ism', function ($text) {
         return '<div class="j-alt ' . $text[1] . '">' . $text[2] . '</div>';
     }, $text);
     return $text;
@@ -216,13 +219,13 @@ function Short_Tabs($text)
 
 function Short_Card_default($text)
 {
-    $text = preg_replace_callback('/<p>\[card-default.*?width=\"(.*?)\".*?label=\"(.*?)\".*?\](.*?)\[\/card-default\]<\/p>/ism', function ($text) {
+    $text = preg_replace_callback('/<p>\[card-default width=\"(.*?)\" label=\"(.*?)\".*?\](.*?)\[\/card-default\]<\/p>/ism', function ($text) {
         return '[card-default width="' . $text[1] . '" label="' . $text[2] . '"]' . $text[3] . '[/card-default]';
     }, $text);
-    $text = preg_replace_callback('/<p>\[card-default.*?width=\"(.*?)\".*?label=\"(.*?)\".*?\](.*?)\[\/card-default\]<\/p>/ism', function ($text) {
+    $text = preg_replace_callback('/<p>\[card-default width=\"(.*?)\" label=\"(.*?)\".*?\](.*?)\[\/card-default\]<\/p>/ism', function ($text) {
         return '[card-default width="' . $text[1] . '" label="' . $text[2] . '"]' . $text[3] . '[/card-default]';
     }, $text);
-    $text = preg_replace_callback('/\[card-default.*?width=\"(.*?)\".*?label=\"(.*?)\".*?\](.*?)\[\/card-default\]/ism', function ($text) {
+    $text = preg_replace_callback('/\[card-default width=\"(.*?)\" label=\"(.*?)\".*?\](.*?)\[\/card-default\]/ism', function ($text) {
         return '<div class="j-card-default" style="width: ' . $text[1] . '">
                 <div class="head">' . $text[2] . '</div>
                 <div class="content">' . $text[3] . '</div>
@@ -243,10 +246,10 @@ function Short_Collapse($text)
     $text = preg_replace_callback('/\[collapse\](.*?)\[\/collapse\]/ism', function ($text) {
         return '<div class="j-collapse">' . $text[1] . '</div>';
     }, $text);
-    $text = preg_replace_callback('/\<p>\[collapse-item.*?label=\"(.*?)\".*?\](.*?)\[\/collapse-item\]<\/p>/ism', function ($text) {
+    $text = preg_replace_callback('/\<p>\[collapse-item label=\"(.*?)\".*?\](.*?)\[\/collapse-item\]<\/p>/ism', function ($text) {
         return '[collapse-item label="' . $text[1] . '"]' . $text[2] . '[/collapse-item]';
     }, $text);
-    $text = preg_replace_callback('/\[collapse-item.*?label=\"(.*?)\".*?\](.*?)\[\/collapse-item\]/ism', function ($text) {
+    $text = preg_replace_callback('/\[collapse-item label=\"(.*?)\".*?\](.*?)\[\/collapse-item\]/ism', function ($text) {
         return '<div class="collapse-head"><span>' . $text[1] . '</span><svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M21.6 772.8c28.8 28.8 74.4 28.8 103.2 0L512 385.6 899.2 772.8c28.8 28.8 74.4 28.8 103.2 0 28.8-28.8 28.8-74.4 0-103.2l-387.2-387.2-77.6-77.6c-14.4-14.4-37.6-14.4-51.2 0l-77.6 77.6-387.2 387.2c-28.8 28.8-28.8 75.2 0 103.2z"></path></svg></div><div class="collapse-body">' . $text[2] . '</div>';
     }, $text);
     return $text;
@@ -299,7 +302,7 @@ function Short_Card_Nav($text)
     $text = preg_replace_callback('/\[card-nav\](.*?)\[\/card-nav\]/ism', function ($text) {
         return '<div class="j-card-nav">' . $text[1] . '</div>';
     }, $text);
-    $text = preg_replace_callback('/\[card-nav-item.*?src=\"(.*?)\".*?title=\"(.*?)\".*?img=\"(.*?)\".*?\/\]/ism', function ($text) {
+    $text = preg_replace_callback('/\[card-nav-item src=\"(.*?)\" title=\"(.*?)\" img=\"(.*?)\".*?\/\]/ism', function ($text) {
         $img = $text[3] === "auto" ? $text[1] . '/favicon.ico' : $text[3];
         $arr = array(
             0 => "linear-gradient(to right, #6DE195, #C4E759)",
@@ -326,11 +329,11 @@ function Short_Card_Nav($text)
 
 function Short_Dplayer($text)
 {
-    $text = preg_replace_callback('/<p>\[dplayer.*?src="(.*?)".*?\/]<\/p>/ism', function ($text) {
+    $text = preg_replace_callback('/<p>\[dplayer src="(.*?)".*?\/]<\/p>/ism', function ($text) {
         return '[dplayer src="' . $text[1] . '" /]';
     }, $text);
 
-    $text = preg_replace_callback('/\[dplayer.*?src="(.*?)".*?\/]/ism', function ($text) {
+    $text = preg_replace_callback('/\[dplayer src="(.*?)".*?\/]/ism', function ($text) {
         return '<iframe scrolling="no" allowfullscreen="allowfullscreen" frameborder="0" width="100%" class="iframe-dplayer" src="' . GetDplayer() . '?url=' . $text[1] . '"></iframe>';
     }, $text);
 
@@ -363,6 +366,28 @@ function Short_Music_List($text)
     return $text;
 }
 
+function Short_Video_List($text)
+{
+    $text = preg_replace_callback('/<p>\[video](.*?)\[\/video]<\/p>/ism', function ($text) {
+        return '[video]' . $text[1] . '[/video]';
+    }, $text);
+    $text = preg_replace_callback('/\[video](.*?)\[\/video]/ism', function ($text) {
+        return preg_replace('~<br.*?>~', '', $text[0]);
+    }, $text);
+    $text = preg_replace_callback('/\[video](.*?)\[\/video]/ism', function ($text) {
+        return '<div class="j-short-video">' . $text[1] . '</div>';
+    }, $text);
+    $text = preg_replace_callback('/\[video-item src="(.*?)" poster="(.*?)".*?\/]/ism', function ($text) {
+        return '<div class="item">
+                    <div class="inner" data-poster="' . $text[2] . '" data-src="' . $text[1] . '" style="background-image: url(' . GetLazyLoad() . ')">
+                        <svg t="1607510948740" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="19996" width="80" height="80"><path d="M512 65c247.424 0 448 200.576 448 448S759.424 961 512 961 64 760.424 64 513 264.576 65 512 65z m0 64c-212.077 0-384 171.923-384 384s171.923 384 384 384 384-171.923 384-384-171.923-384-384-384z m-63 214.657a64 64 0 0 1 33.593 9.525L655.857 460.03c30.086 18.552 39.435 57.982 20.882 88.067a64 64 0 0 1-21.324 21.152L482.151 674.17c-30.235 18.308-69.587 8.64-87.896-21.594A64 64 0 0 1 385 619.425V407.657c0-35.346 28.654-64 64-64z m1.196 74.49a8 8 0 0 0-1.196 4.207v183.432a8 8 0 0 0 12.15 6.84l149.688-90.851a8 8 0 0 0 0.057-13.643L461.208 415.55a8 8 0 0 0-11.012 2.595z" p-id="19997"></path></svg>
+                    </div>
+                </div>';
+    }, $text);
+
+    return $text;
+}
+
 
 
 function themeInit($archive)
@@ -375,6 +400,8 @@ function themeInit($archive)
     Helper::options()->commentsRequireMail = true;
     /* 强奸用户强制要求无需填写url */
     Helper::options()->commentsRequireURL = false;
+    /* 强奸用户强制开启评论回复 */
+    Helper::options()->commentsThreaded = true;
 
     if ($archive->is('single')) {
         $archive->content = ParseReply($archive->content);
@@ -938,7 +965,9 @@ Typecho_Plugin::factory('admin/write-page.php')->bottom = array('editor', 'reset
 class editor
 {
     public static function reset()
-    { ?>
+    {
+        Typecho_Widget::widget('Widget_Options')->to($options);
+?>
         <style>
             .wmd-button.custom {
                 width: 20px;
@@ -1027,7 +1056,7 @@ class editor
                         <svg t="1607494486968" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="40194" width="15" height="15"><path d="M777.728 287.232l-636.416 0.512c-51.712 0-72.704 20.992-72.704 72.704v303.104c0 51.712 21.504 72.704 72.704 72.704l636.928 0.512 177.664-224.768-178.176-224.768z" p-id="40195" fill="#888888"></path></svg>
                     </li>
                     <li class="wmd-button custom" id="j-wmd-photo" title="相册">
-                        <svg t="1607494516949" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="41090" width="15" height="15"><path d="M830.1568 339.89632h-85.01248L586.55232 231.5776s-1.2288 0-1.2288-1.22368c-2.03776-34.74432-30.64832-63.35488-66.62144-63.35488-33.92 0-62.53568 25.74848-66.62144 59.264l-167.5776 110.35648-2.04288 3.27168H208.88064c-40.05376 0-72.7552 32.70144-72.7552 72.7552v398.1056c0 40.05376 32.70144 72.7552 72.7552 72.7552h622.49984c40.04864 0 72.75008-32.70144 72.75008-72.7552V412.2368c-1.21856-40.87296-33.92-72.3456-73.97376-72.34048z m-310.63552-142.24384c19.61984 0 35.968 16.34816 35.968 35.968 0 19.61984-16.34816 35.968-35.968 35.968s-35.968-16.34816-35.968-35.968c-0.00512-19.61472 16.75776-35.968 35.968-35.968zM458.20928 258.96448c10.21952 23.7056 33.92512 40.87296 61.312 40.87296 26.56256 0 49.04448-15.53408 59.25888-38.01088l112.4096 76.84096H337.63328l120.576-79.70304z m414.85824 550.96832h-1.22368c0 23.71072-18.39616 42.09664-42.10688 42.09664H208.88576c-23.7056 0-42.10176-18.38592-42.10176-42.09664V412.24192c0-23.71072 18.39104-42.10176 42.10176-42.10176h622.49472c23.7056 0 42.10176 18.39104 42.10176 42.10176v397.696h-0.41472z" p-id="41091" fill="#888888"></path><path d="M257.93024 506.24512h212.53632c8.17664 0 15.53408-7.35744 15.53408-15.52896s-7.35744-15.11936-15.53408-15.11936H257.93024c-8.17664 0-15.53408 7.35744-15.53408 15.52896s7.36256 15.11936 15.53408 15.11936z m410.77248 87.87968H257.93024c-8.17664 0-15.53408 7.35744-15.53408 15.52896 0 8.18176 7.35744 15.52896 15.53408 15.52896h410.77248c8.17664 0 15.52896-7.35232 15.52896-15.52896 0.00512-8.17152-7.35232-15.52896-15.52896-15.52896z m-198.23104 118.528H257.93024c-8.17664 0-15.53408 7.36256-15.53408 15.53408 0 8.17152 7.35744 15.52896 15.53408 15.52896h212.53632c8.17664 0 15.53408-7.36256 15.53408-15.52896 0-8.17152-6.12864-15.53408-15.52896-15.53408z" p-id="41092" fill="#888888"></path></svg>
+                        <svg t="1607510400757" class="icon" viewBox="0 0 1317 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4334" width="48" height="48"><path d="M325.065 353.023c62.086 0 112.423-50.705 112.423-113.277S387.21 126.469 325.065 126.469 212.64 177.174 212.64 239.73s50.338 113.292 112.424 113.292zM663.6 496.13l-86.394-93.122-224.316 264.834-91.974-84.686-133.741 172.198h932.6V583.155L840.54 264.981 663.601 496.129z" p-id="4335" fill="#888888"></path><path d="M65.428 754.75V139.085c0-40.355 27.856-73.172 62.1-73.172h937.416c34.245 0 62.1 32.832 62.1 73.172V754.75c0 40.356-27.855 73.173-62.1 73.173H127.53c-34.245 0-62.1-32.89-62.1-73.173z m1127.045 0V139.085C1192.458 62.396 1135.26 0 1064.944 0H127.53C57.213 0 0 62.395 0 139.086V754.75c0 76.692 57.213 139.087 127.529 139.087h937.415c70.316 0 127.514-62.395 127.514-139.087z" p-id="4336" fill="#888888"></path><path d="M1240.705 141.633l0.147 85.304c8.834 12.647 11.425 24.676 11.425 42.314v615.663c0 40.355-27.856 73.172-62.1 73.172h-937.43c-20.362 0-29.74-2.945-42.83-20.288-17.505 0.427-57.227 0-75.086 0 16.195 58.582 61.836 86.187 117.871 86.187h937.46c70.316 0 127.528-62.395 127.528-139.086V269.251c0-58.214-30.343-106.932-76.985-127.618z" p-id="4337" fill="#888888"></path></svg>
                     </li>
                     <li class="wmd-button custom" id="j-wmd-music" title="网抑云音乐">
                         <svg t="1607494540558" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="41806" width="15" height="15"><path d="M603.97 105.21c22.1-6.37 45.78-6.05 68.1-0.92 25.63 6.09 49.88 17.86 70.75 33.9 7.62 5.79 14.5 12.99 18 22.05 5.42 13.4 3.97 29.42-4.03 41.49-6.98 10.84-18.85 18.39-31.64 20.01-10.22 1.4-20.93-0.77-29.71-6.2-4.95-2.91-8.72-7.4-13.69-10.28-13.33-8.46-28.68-15.12-44.73-14.74-11.3 0.13-21.24 6.75-28.9 14.53-7.17 7.4-10.82 18.31-8.45 28.46 5.51 20.74 10.99 41.48 16.49 62.22 39.54 2.03 79.06 12.49 113.05 33.13 33.04 20.44 62.89 46.36 86.56 77.25 20.09 26.18 35.32 56.08 44.64 87.74 10.09 34.12 13.36 70.1 10.73 105.54-2.19 29.24-7.94 58.31-17.86 85.94-25.65 67.28-73.16 126.27-134.31 164.5-44.85 28.33-96.36 45.42-148.89 51.94-36.26 4.53-73.21 4.55-109.29-1.63-74.14-12.25-143.62-49.2-196.35-102.57-52.4-52.5-88.87-120.64-103.62-193.33-10.88-53.01-10.39-108.36 1.68-161.13 14.75-65.07 47.35-125.94 93.18-174.41 37.38-39.8 83.55-71.29 134.23-91.62 5.22-1.99 10.36-4.35 15.92-5.23 11.87-2.08 24.55 0.73 34.27 7.89 13.16 9.29 20.4 26.14 18.21 42.08-1.81 16.27-13.36 30.94-28.75 36.51-51.2 19.14-96.6 53.34-129.28 97.13-29.21 38.86-48.27 85.28-54.66 133.49-6.45 47.72-0.71 97 16.39 142 24.7 65.79 73.81 122.4 136.42 154.62 37.7 19.53 80.14 29.73 122.59 29.44 34.92-0.45 69.95-6.06 102.77-18.2 28.86-10.72 55.91-26.55 78.91-47.07 21.44-19 39.28-41.96 52.89-67.15 6.82-12.85 13.12-26.08 16.97-40.15 11.36-40.22 13.33-83.81 1.18-124.09-10.05-33.78-30.73-63.89-57.14-87.02-11.68-10.22-24.16-19.59-37.54-27.47-11.82-6.64-24.73-11.16-37.9-14.25 9.18 35.9 19 71.65 28.31 107.52 1.58 8.6 3.16 17.2 4.64 25.82 1.36 37.01-11.62 74.29-35.49 102.6-22.24 26.68-53.82 45.45-87.98 51.9-36.82 7.34-76.41 0.41-108.03-20-30.19-19.14-52.49-49.45-64.25-83-6.66-18.77-9.98-38.62-10.64-58.5-2.02-43.25 9.29-87.44 34.03-123.21 29.07-42.69 74.9-72.04 124.04-86.36-3.62-13.84-7.32-27.66-10.98-41.5-9.49-29.87-7.47-63.41 6.69-91.49 7.64-15.67 19-29.32 32.14-40.67 14.63-12.51 31.71-22.39 50.33-27.51M486.64 430.56c-13.18 13.84-22.42 31.34-26.4 50.02-3.58 16.96-3.6 34.64-0.38 51.65 3.93 18.79 13.63 37.17 29.71 48.26 12.48 8.86 28.73 11.55 43.62 8.64 27.55-4.84 50.03-30.19 50.8-58.24-1.05-6.95-2.2-13.9-4.16-20.66-10.29-38.92-20.67-77.81-30.9-116.75-23.28 7.18-45.44 19.28-62.29 37.08z" p-id="41807" fill="#888888"></path></svg>
@@ -1049,6 +1078,9 @@ class editor
                     </li>
                     <li class="wmd-button custom" id="j-wmd-html" title="原生代码">
                         <svg t="1607496478319" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7487" data-spm-anchor-id="a313x.7781069.0.i37" width="15" height="15"><path d="M868.8 105.6 155.2 105.6c-28.8 0-51.2 25.6-48 54.4l75.2 600c1.6 17.6 12.8 32 28.8 38.4l281.6 118.4c11.2 4.8 25.6 4.8 36.8 0l281.6-118.4c16-6.4 27.2-20.8 28.8-38.4l75.2-600C920 129.6 897.6 105.6 868.8 105.6zM865.6 179.2l-70.4 558.4c-1.6 8-6.4 16-14.4 19.2l-259.2 108.8c-6.4 3.2-12.8 3.2-19.2 0l-259.2-108.8c-8-3.2-12.8-11.2-14.4-19.2L158.4 179.2c-1.6-14.4 9.6-27.2 24-27.2l659.2 0C856 153.6 867.2 166.4 865.6 179.2z" p-id="7488" fill="#888888"></path><path d="M716.8 252.8 331.2 252.8c-28.8 0-51.2 25.6-48 54.4l17.6 136c3.2 24 24 41.6 48 41.6l294.4 0c14.4 0 25.6 12.8 24 27.2l-9.6 80c-1.6 8-6.4 16-14.4 19.2l-120 51.2c-6.4 3.2-12.8 3.2-19.2 0l-120-51.2c-8-3.2-12.8-11.2-14.4-19.2l-3.2-28.8c-1.6-12.8-14.4-22.4-27.2-20.8-12.8 1.6-22.4 14.4-20.8 27.2l4.8 41.6c1.6 17.6 12.8 32 28.8 38.4l142.4 60.8c11.2 4.8 25.6 4.8 36.8 0l142.4-60.8c16-6.4 27.2-20.8 28.8-38.4l14.4-121.6c3.2-28.8-19.2-54.4-48-54.4l-300.8 0c-12.8 0-22.4-9.6-24-20.8l-11.2-88c-1.6-14.4 9.6-27.2 24-27.2l358.4 0c11.2 0 20.8-8 24-19.2l0 0C742.4 267.2 731.2 252.8 716.8 252.8z" p-id="7489" fill="#888888"></path></svg>
+                    </li>
+                    <li class="wmd-button custom" id="j-wmd-video-album" title="视频册">
+                        <svg t="1607510613858" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="16645" width="48" height="48"><path d="M0 224v576c0 70.7 57.3 128 128 128h768c70.7 0 128-57.3 128-128V224c0-70.7-57.3-128-128-128H128C57.3 96 0 153.3 0 224z m160-64h80c8.8 0 16 7.2 16 16v672c0 8.8-7.2 16-16 16h-80c-53 0-96-43-96-96V256c0-53 43-96 96-96z m528 704H336c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16h352c8.8 0 16 7.2 16 16v672c0 8.8-7.2 16-16 16z m176 0h-80c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16h80c53 0 96 43 96 96v512c0 53-43 96-96 96z" p-id="16646" fill="#888888"></path><path d="M128 224c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16v-64c0-8.8-7.2-16-16-16h-64zM128 384c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16v-64c0-8.8-7.2-16-16-16h-64zM128 544c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16v-64c0-8.8-7.2-16-16-16h-64zM128 704c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16v-64c0-8.8-7.2-16-16-16h-64zM832 224c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16v-64c0-8.8-7.2-16-16-16h-64zM832 384c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16v-64c0-8.8-7.2-16-16-16h-64zM832 544c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16v-64c0-8.8-7.2-16-16-16h-64zM832 704c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16v-64c0-8.8-7.2-16-16-16h-64z" p-id="16647" fill="#888888"></path></svg>
                     </li>
                 `)
                 $("#j-wmd-linecode").on("click", function() {
@@ -1120,6 +1152,9 @@ class editor
                 $("#j-wmd-html").on("click", function() {
                     insertAtCursor('\n!!!\n这里写原生html代码\n!!!\n');
                 })
+                $("#j-wmd-video-album").on("click", function() {
+                    insertAtCursor('\n[video]\n [video-item src="视频地址" poster="海报图（填写数字则表示截取视频帧）" /]\n [video-item src="视频地址" poster="海报图（填写数字则表示截取视频帧）" /]\n[/video]\n');
+                })
 
                 function insertAtCursor(myValue, myField = $('#text')[0]) {
                     if (document.selection) {
@@ -1144,6 +1179,190 @@ class editor
                     }
                 }
 
+
+                /* 粘贴上传 */
+                // 上传URL
+                var uploadUrl = '<?php Helper::security()->index('/action/upload'); ?>';
+                // 处理有特定的 CID 的情况
+                var cid = $('input[name="cid"]').val();
+                if (cid) {
+                    uploadUrl += '&cid=' + cid;
+                }
+
+                // 上传文件函数
+                function uploadFile(file) {
+                    // 生成一段随机的字符串作为 key
+                    var index = Math.random().toString(10).substr(2, 5) + '-' + Math.random().toString(36).substr(2);
+                    // 默认文件后缀是 png，在Chrome浏览器中剪贴板粘贴的图片都是png格式，其他浏览器暂未测试
+                    var fileName = index + '.png';
+
+                    // 上传时候提示的文字
+                    var uploadingText = '[图片上传中...(' + index + ')]';
+
+                    // 先把这段文字插入
+                    var textarea = $('#text'),
+                        sel = textarea.getSelection(),
+                        offset = (sel ? sel.start : 0) + uploadingText.length;
+                    textarea.replaceSelection(uploadingText);
+                    // 设置光标位置
+                    textarea.setSelection(offset, offset);
+
+                    // 设置附件栏信息
+                    // 先切到附件栏
+                    $('#tab-files-btn').click();
+
+                    // 更新附件的上传提示
+                    var fileInfo = {
+                        id: index,
+                        name: fileName
+                    }
+                    fileUploadStart(fileInfo);
+
+                    // 是时候展示真正的上传了
+                    var formData = new FormData();
+                    formData.append('name', fileName);
+                    formData.append('file', file, fileName);
+
+                    $.ajax({
+                        method: 'post',
+                        url: uploadUrl,
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(data) {
+                            var url = data[0],
+                                title = data[1].title;
+                            textarea.val(textarea.val().replace(uploadingText, '![' + title + '](' + url + ')'));
+                            // 触发输入框更新事件，把状态压人栈中，解决预览不更新的问题
+                            textarea.trigger('paste');
+                            // 附件上传的UI更新
+                            fileUploadComplete(index, url, data[1]);
+                        },
+                        error: function(error) {
+                            textarea.val(textarea.val().replace(uploadingText, '[图片上传错误...]\n'));
+                            // 触发输入框更新事件，把状态压人栈中，解决预览不更新的问题
+                            textarea.trigger('paste');
+                            // 附件上传的 UI 更新
+                            fileUploadError(fileInfo);
+                        }
+                    });
+                }
+
+                // 监听输入框粘贴事件
+                document.getElementById('text').addEventListener('paste', function(e) {
+                    var clipboardData = e.clipboardData;
+                    var items = clipboardData.items;
+                    for (var i = 0; i < items.length; i++) {
+                        if (items[i].kind === 'file' && items[i].type.match(/^image/)) {
+                            // 取消默认的粘贴操作
+                            e.preventDefault();
+                            // 上传文件
+                            uploadFile(items[i].getAsFile());
+                            break;
+                        }
+                    }
+                });
+
+                // 更新附件数量显示
+                function updateAttacmentNumber() {
+                    var btn = $('#tab-files-btn'),
+                        balloon = $('.balloon', btn),
+                        count = $('#file-list li .insert').length;
+
+                    if (count > 0) {
+                        if (!balloon.length) {
+                            btn.html($.trim(btn.html()) + ' ');
+                            balloon = $('<span class="balloon"></span>').appendTo(btn);
+                        }
+
+                        balloon.html(count);
+                    } else if (0 == count && balloon.length > 0) {
+                        balloon.remove();
+                    }
+                }
+
+                // 开始上传文件的提示
+                function fileUploadStart(file) {
+                    $('<li id="' + file.id + '" class="loading">' +
+                        file.name + '</li>').appendTo('#file-list');
+                }
+
+                // 上传完毕的操作
+                var completeFile = null;
+
+                function fileUploadComplete(id, url, data) {
+                    var li = $('#' + id).removeClass('loading').data('cid', data.cid)
+                        .data('url', data.url)
+                        .data('image', data.isImage)
+                        .html('<input type="hidden" name="attachment[]" value="' + data.cid + '" />' +
+                            '<a class="insert" target="_blank" href="###" title="<?php _e('点击插入文件'); ?>">' + data.title + '</a><div class="info">' + data.bytes +
+                            ' <a class="file" target="_blank" href="<?php $options->adminUrl('media.php'); ?>?cid=' +
+                            data.cid + '" title="<?php _e('编辑'); ?>"><i class="i-edit"></i></a>' +
+                            ' <a class="delete" href="###" title="<?php _e('删除'); ?>"><i class="i-delete"></i></a></div>')
+                        .effect('highlight', 1000);
+
+                    attachInsertEvent(li);
+                    attachDeleteEvent(li);
+                    updateAttacmentNumber();
+
+                    if (!completeFile) {
+                        completeFile = data;
+                    }
+                }
+
+                // 增加插入事件
+                function attachInsertEvent(el) {
+                    $('.insert', el).click(function() {
+                        var t = $(this),
+                            p = t.parents('li');
+                        Typecho.insertFileToEditor(t.text(), p.data('url'), p.data('image'));
+                        return false;
+                    });
+                }
+
+                // 增加删除事件
+                function attachDeleteEvent(el) {
+                    var file = $('a.insert', el).text();
+                    $('.delete', el).click(function() {
+                        if (confirm('<?php _e('确认要删除文件 %s 吗?'); ?>'.replace('%s', file))) {
+                            var cid = $(this).parents('li').data('cid');
+                            $.post('<?php Helper::security()->index('/action/contents-attachment-edit'); ?>', {
+                                    'do': 'delete',
+                                    'cid': cid
+                                },
+                                function() {
+                                    $(el).fadeOut(function() {
+                                        $(this).remove();
+                                        updateAttacmentNumber();
+                                    });
+                                });
+                        }
+
+                        return false;
+                    });
+                }
+
+                // 错误处理，相比原来的函数，做了一些微小的改造
+                function fileUploadError(file) {
+                    var word;
+
+                    word = '<?php _e('上传出现错误'); ?>';
+
+                    var fileError = '<?php _e('%s 上传失败'); ?>'.replace('%s', file.name),
+                        li, exist = $('#' + file.id);
+
+                    if (exist.length > 0) {
+                        li = exist.removeClass('loading').html(fileError);
+                    } else {
+                        li = $('<li>' + fileError + '<br />' + word + '</li>').appendTo('#file-list');
+                    }
+
+                    li.effect('highlight', {
+                        color: '#FBC2C4'
+                    }, 2000, function() {
+                        $(this).remove();
+                    });
+                }
             })
         </script>
 <?php }
