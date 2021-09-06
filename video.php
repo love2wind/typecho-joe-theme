@@ -8,59 +8,54 @@
  **/
 
 ?>
-<?php $this->need('public/prevent.php'); ?>
-<?php $this->need('public/defend.php'); ?>
-<!-- 
-    *
-    * 写字楼里写字间，写字间里程序员；
-    * 程序人员写程序，又拿程序换酒钱。
-    * 酒醒只在网上坐，酒醉还来网下眠；
-    * 酒醉酒醒日复日，网上网下年复年。
-    * 但愿老死电脑间，不愿鞠躬老板前；
-    * 奔驰宝马贵者趣，公交自行程序员。
-    * 别人笑我忒疯癫，我笑自己命太贱；
-    * 不见满街漂亮妹，哪个归得程序员？
-    *
- -->
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
-    <?php $this->need('public/head.php'); ?>
+    <?php $this->need('public/include.php'); ?>
+    <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/joe.video.min.css'); ?>">
+    <script src="<?php $this->options->themeUrl('assets/js/joe.video.min.js'); ?>"></script>
 </head>
 
 <body>
-    <?php $this->options->JCustomBodyStart() ?>
-
-    <section id="joe">
-        <!-- 头部 -->
+    <div id="Joe">
         <?php $this->need('public/header.php'); ?>
-
-        <!-- 主体 -->
-        <section class="container j-post">
-            <section class="j-adaption">
-                <?php $this->need('component/video.api.php'); ?>
-            </section>
-        </section>
-
-        <!-- 弹幕 -->
-        <?php if ($this->options->JBarragerStatus === 'on') : ?>
-            <ul class="j-barrager-list">
-                <?php $this->comments()->to($comments); ?>
-                <?php while ($comments->next()) : ?>
-                    <li>
-                        <span class="j-barrager-list-avatar" data-src="<?php ParseAvatar($comments->mail); ?>"></span>
-                        <span class="j-barrager-list-content"><?php $comments->excerpt(); ?></span>
-                    </li>
-                <?php endwhile; ?>
-            </ul>
-        <?php endif; ?>
-
-        <!-- 尾部 -->
+        <div class="joe_container">
+            <div class="joe_main">
+                <?php if (isset($_GET['vod_id'])) : ?>
+                    <div class="joe_video__detail joe_video__contain">
+                        <div class="joe_video__contain-title">影片简介</div>
+                        <div class="joe_video__detail-info">
+                            <p class="error">正在拼命加载中...</p>
+                        </div>
+                    </div>
+                    <div class="joe_video__player joe_video__contain">
+                        <div class="joe_video__contain-title">正在播放：</div>
+                        <iframe allowfullscreen="true" class="joe_video__player-play" data-player="<?php $this->options->JCustomPlayer ? $this->options->JCustomPlayer() : Helper::options()->themeUrl('library/player.php?url=') ?>"></iframe>
+                    </div>
+                <?php else : ?>
+                    <div class="joe_video__type joe_video__contain">
+                        <div class="joe_video__contain-title">视频分类</div>
+                        <ul class="joe_video__type-list">
+                            <li class="error">正在拼命加载中...</li>
+                        </ul>
+                    </div>
+                    <div class="joe_video__list joe_video__contain">
+                        <div class="joe_video__contain-title">视频列表</div>
+                        <div class="joe_video__list-search">
+                            <input class="input" type="text" placeholder="请输入影片名称...">
+                            <button class="button">搜 索</button>
+                        </div>
+                        <div class="joe_video__list-item"></div>
+                    </div>
+                    <ul class="joe_video__pagination"></ul>
+                <?php endif; ?>
+            </div>
+            <?php $this->need('public/aside.php'); ?>
+        </div>
         <?php $this->need('public/footer.php'); ?>
-    </section>
-    <!-- 配置文件 -->
-    <?php $this->need('public/config.php'); ?>
+    </div>
 </body>
 
 </html>
