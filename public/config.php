@@ -1,131 +1,69 @@
-<!-- 音乐播放器 -->
-<?php if ($this->options->JPlayer && !isMobile()) : ?>
-    <meting-js id="<?php $this->options->JPlayer(); ?>" lrc-type="1" server="netease" storage-name="meting" theme="#ebebeb" autoplay type="playlist" fixed="true" list-olded="true"></meting-js>
-    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
-<?php endif; ?>
-
-<?php $this->footer(); ?>
-
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery.qrcode@1.0.3/jquery.qrcode.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@0.14.16/dist/hls.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/dplayer@1.26.0/dist/DPlayer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/draggabilly@2.3.0/dist/draggabilly.pkgd.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/wowjs@1.1.3/dist/wow.min.js"></script>
-
-<!-- live2d -->
-<?php if ($this->options->JLive2D !== 'off' && !isMobile()) : ?>
-    <script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script>
-<?php endif; ?>
-
-
-<!-- 颜色选择器 -->
-<?php if ($this->options->JGlobalThemeStatus === 'on') : ?>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-colpick@3.1.0/js/colpick.min.js"></script>
-<?php endif; ?>
-
-<!-- 柱状图 -->
-<?php if ($this->options->JCensusStatus === 'on') : ?>
-    <script src="https://cdn.jsdelivr.net/npm/highcharts@8.2.2/highcharts.min.js"></script>
-<?php endif; ?>
-
-<!-- 代码高亮 -->
-<?php if ($this->options->JCodeColor !== 'off') : ?>
-    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/highlight.min.js"></script>
-<?php endif; ?>
-
-<!-- 天气 -->
-<?php if ($this->options->JWetherKey) : ?>
-    <script src="https://apip.weatherdt.com/standard/static/js/weather-standard-common.js"></script>
-<?php endif; ?>
-
-<!-- 页面加载 -->
-<?php if ($this->options->JPageLoading !== "off") : ?>
-    <script src="https://cdn.jsdelivr.net/npm/fakeloader@1.0.0/fakeLoader.min.js"></script>
-<?php endif; ?>
-
-<!-- 轮播图 -->
-<?php if ($this->options->JIndexCarousel) : ?>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@5.4.5/js/swiper.min.js"></script>
-<?php endif; ?>
-
-<!-- 平滑滚动 -->
-<script src="https://cdn.jsdelivr.net/npm/typecho_joe_theme@4.3.5/library/SmoothScroll/SmoothScroll.min.js"></script>
-
-<!-- 图片懒加载 -->
-<script src="https://cdn.jsdelivr.net/npm/typecho_joe_theme@4.3.5/library/joe.lazyload/joe.lazyload.min.js"></script>
-
-<!-- 弹窗提示 -->
-<script src="https://cdn.jsdelivr.net/npm/typecho_joe_theme@4.3.5/library/joe.toast/joe.toast.min.js"></script>
-
-<!-- 画图 -->
-<script src="https://cdn.jsdelivr.net/npm/typecho_joe_theme@4.3.5/library/sketchpad/sketchpad.min.js"></script>
-
-<!-- 鱼群跳跃 -->
-<?php if ($this->options->JFishStatus !== "off") : ?>
-    <script src="https://cdn.jsdelivr.net/npm/typecho_joe_theme@4.3.5/assets/js/fish.min.js"></script>
-<?php endif; ?>
-
-<?php if ($this->options->JCDN === 'on') : ?>
-    <!-- 弹幕 -->
-    <?php if ($this->options->JBarragerStatus === 'on') : ?>
-        <script src="https://cdn.jsdelivr.net/npm/typecho_joe_theme@<?php echo JoeVersion() ?>/library/joe.barrager/joe.barrager.min.js"></script>
-    <?php endif; ?>
-    <!-- 3dtag -->
-    <?php if ($this->options->J3DTagStatus === 'on') : ?>
-        <script src="https://cdn.jsdelivr.net/npm/typecho_joe_theme@<?php echo JoeVersion() ?>/library/3DTag/3DTag.min.js"></script>
-    <?php endif; ?>
-    <!-- 目录树 -->
-    <?php if ($this->options->JDirectoryStatus === 'on'  && !isMobile()) : ?>
-        <script src="https://cdn.jsdelivr.net/npm/typecho_joe_theme@<?php echo JoeVersion() ?>/assets/js/jfloor.min.js"></script>
-    <?php endif; ?>
-
-    <script src="https://cdn.jsdelivr.net/npm/typecho_joe_theme@<?php echo JoeVersion() ?>/assets/js/OwO.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/typecho_joe_theme@<?php echo JoeVersion() ?>/assets/js/joe.config.js?v=<?php echo JoeVersion() ?>"></script>
-<?php else : ?>
-    <!-- 弹幕 -->
-    <?php if ($this->options->JBarragerStatus === 'on') : ?>
-        <script src="<?php $this->options->themeUrl('library/joe.barrager/joe.barrager.min.js'); ?>"></script>
-    <?php endif; ?>
-    <!-- 3dtag -->
-    <?php if ($this->options->J3DTagStatus === 'on') : ?>
-        <script src="<?php $this->options->themeUrl('library/3DTag/3DTag.min.js'); ?>"></script>
-    <?php endif; ?>
-    <!-- 目录树 -->
-    <?php if ($this->options->JDirectoryStatus === 'on'  && !isMobile()) : ?>
-        <script src="<?php $this->options->themeUrl('assets/js/jfloor.min.js'); ?>"></script>
-    <?php endif; ?>
-    <script src="<?php $this->options->themeUrl('assets/js/OwO.min.js'); ?>"></script>
-    <script src="<?php $this->options->themeUrl('assets/js/joe.config.js?v=' . JoeVersion()); ?>"></script>
-<?php endif; ?>
-
-<!-- 背景 -->
-<?php $this->need('config/background.php'); ?>
-
-<!-- 鼠标点击特效 -->
-<?php $this->need('config/cursor.effect.php'); ?>
-
 <script>
-    <?php
-    $p = Typecho_Cookie::getPrefix();
-    $q = $p . '__typecho_notice';
-    $y = $p . '__typecho_notice_type';
-    if (isset($_COOKIE[$y]) && ($_COOKIE[$y] == 'success' || $_COOKIE[$y] == 'notice' || $_COOKIE[$y] == 'error')) {
-        if (isset($_COOKIE[$q])) { ?>
-            $.toast({
-                type: "warning",
-                message: '<?php echo preg_replace('#\[\"(.*?)\"\]#', '$1', $_COOKIE[$q]); ?>！'
-            })
-    <?php
-            Typecho_Cookie::delete('__typecho_notice');
-            Typecho_Cookie::delete('__typecho_notice_type');
+    function detectIE() {
+        var n = window.navigator.userAgent,
+            e = n.indexOf("MSIE ");
+        if (e > 0) {
+            return parseInt(n.substring(e + 5, n.indexOf(".", e)), 10)
         }
-    } ?>
-    /* 自定义JS */
-    <?php $this->options->JCustomScript() ?>
+        if (n.indexOf("Trident/") > 0) {
+            var r = n.indexOf("rv:");
+            return parseInt(n.substring(r + 3, n.indexOf(".", r)), 10)
+        }
+        var i = n.indexOf("Edge/");
+        return i > 0 && parseInt(n.substring(i + 5, n.indexOf(".", i)), 10)
+    };
+    detectIE() && (alert('当前站点不支持IE浏览器或您开启了兼容模式，请使用其他浏览器访问或关闭兼容模式。'), (location.href = 'https://www.baidu.com'))
+    localStorage.getItem("data-night") && document.querySelector("html").setAttribute("data-night", "night");
+    window.Joe = {
+        THEME_URL: `<?php Helper::options()->themeUrl() ?>`,
+        LIVE2D: `<?php $this->options->JLive2d() ?>`,
+        BASE_API: `<?php echo $this->options->rewrite == 0 ? Helper::options()->rootUrl . '/index.php/joe/api' : Helper::options()->rootUrl . '/joe/api' ?>`,
+        DYNAMIC_BACKGROUND: `<?php $this->options->JDynamic_Background() ?>`,
+        WALLPAPER_BACKGROUND_PC: `<?php $this->options->JWallpaper_Background_PC() ?>`,
+        IS_MOBILE: /windows phone|iphone|android/gi.test(window.navigator.userAgent),
+        BAIDU_PUSH: <?php echo $this->options->JBaiduToken ? 'true' : 'false' ?>,
+        DOCUMENT_TITLE: `<?php $this->options->JDocumentTitle() ?>`,
+        LAZY_LOAD: `<?php _getLazyload() ?>`,
+        BIRTHDAY: `<?php $this->options->JBirthDay() ?>`,
+        MOTTO: `<?php _getAsideAuthorMotto() ?>`,
+        PAGE_SIZE: `<?php $this->parameter->pageSize() ?>`
+    }
 </script>
+<?php
+$fontUrl = $this->options->JCustomFont;
+if (strpos($fontUrl, 'woff2') !== false) $fontFormat = 'woff2';
+elseif (strpos($fontUrl, 'woff') !== false) $fontFormat = 'woff';
+elseif (strpos($fontUrl, 'ttf') !== false) $fontFormat = 'truetype';
+elseif (strpos($fontUrl, 'eot') !== false) $fontFormat = 'embedded-opentype';
+elseif (strpos($fontUrl, 'svg') !== false) $fontFormat = 'svg';
+?>
+<style>
+    @font-face {
+        font-family: 'Joe Font';
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+        src: url('<?php echo $fontUrl ?>');
+        <?php if ($fontFormat) : ?>src: url('<?php echo $fontUrl ?>') format('<?php echo $fontFormat ?>');
+        <?php endif; ?>
+    }
 
-<?php $this->options->JCustomBodyEnd() ?>
+    body {
+        <?php if ($fontUrl) : ?>font-family: 'Joe Font';
+        <?php else : ?>font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+        <?php endif; ?>
+    }
+
+    body::before {
+        background: <?php if (_isMobile()) {
+                        echo $this->options->JWallpaper_Background_WAP ? "url(" . $this->options->JWallpaper_Background_WAP . ")" : "#f5f5f5";
+                    } else {
+                        echo $this->options->JWallpaper_Background_PC ? "url(" . $this->options->JWallpaper_Background_PC . ")" : "#f5f5f5";
+                    } ?>;
+        background-position: center 0;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    <?php $this->options->JCustomCSS() ?>
+</style>
