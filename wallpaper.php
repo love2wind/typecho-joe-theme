@@ -1,7 +1,13 @@
 <?php
+/*
+ * @Descripttion: 
+ * @Author: 帅气的杜恒欧巴
+ * @Date: 2020-12-22 13:30:55
+ * @LastEditTime: 2020-12-22 13:32:22
+ */
 
 /**
- * 视频
+ * 壁纸
  * 
  * @package custom 
  * 
@@ -39,7 +45,7 @@
         <!-- 主体 -->
         <section class="container j-post">
             <section class="j-adaption">
-                <?php $this->need('component/video.api.php'); ?>
+                <?php $this->need('component/wallpaper.api.php'); ?>
             </section>
         </section>
 
