@@ -57,7 +57,8 @@
                         </div>
                     <?php endif; ?>
                     <?php $this->need('public/article.php'); ?>
-                    <?php $this->need('public/handle.php'); ?>
+                    <?php //$this->need('public/handle.php'); ?>
+                    <?php $this->need('/post.shang.php'); ?>
                     <?php $this->need('public/operate.php'); ?>
                     <?php $this->need('public/copyright.php'); ?>
                     <?php $this->need('public/related.php'); ?>

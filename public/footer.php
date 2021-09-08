@@ -1,3 +1,4 @@
+<?php $this->need('./foot.about1.php'); ?>
 <footer class="joe_footer">
     <div class="joe_container">
         <div class="item">

@@ -17,6 +17,7 @@
                 <span>评论量</span>
             </div>
         </div>
+        <?php $this->need('./post.social.php'); ?>
         <?php if ($this->options->JAside_Author_Nav !== "off") : ?>
             <ul class="list"><?php _getAsideAuthorNav() ?></ul>
         <?php endif; ?>
@@ -129,7 +130,7 @@
                 <span class="text">最新回复</span>
                 <span class="line"></span>
             </div>
-            <?php $this->widget('Widget_Comments_Recent', 'ignoreAuthor=true&pageSize=5')->to($item); ?>
+            <?php $this->widget('Widget_Comments_Recent', 'ignoreAuthor=true&pageSize=3')->to($item); ?>
             <ul class="joe_aside__item-contain">
                 <?php if ($item->have()) : ?>
                     <?php while ($item->next()) : ?>
